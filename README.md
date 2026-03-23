@@ -74,8 +74,9 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 | Phase | Status | Notes |
 |---|---|---|
 | Phase 0 — Hardware Acquisition | ✅ Complete | RT7 in hand |
-| Phase 0b — Debloat | ⚠️ Learned hard lesson | Boot loop — do not debloat (see TROUBLESHOOTING.md) |
-| Phase 0c — Firmware Recovery | ✅ Resolved | Device reflashed to clean Android 15 baseline |
+| Phase 0b — Debloat Attempt | ⚠️ Boot loop | Batch 3 caused boot loop — see [DEBLOAT_ISSUES.md](DEBLOAT_ISSUES.md) |
+| Phase 0c — Factory Wipe Recovery | ✅ Complete | Power + Volume Up → Wipe data — device restored |
+| Phase 0d — Firmware Reflash | 🔄 Pending | Windows + SP Flash Tool — not yet performed |
 | Phase 1 — Content Download | ✅ Complete | 244GB staged across two drives |
 | Phase 2 — MicroSD Transfer | 🔄 In Progress | Waiting on SanDisk Extreme 512GB arrival |
 | Phase 3 — App Configuration | ⏳ Pending | |
@@ -102,15 +103,14 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 bunkerai-rt7-alaska/
 ├── README.md                   ← You are here
 ├── BUILD_LOG.md                ← Full narrative build log (all phases)
-├── HARDWARE.md                 ← BOM, specs, sourcing decisions
-├── SOFTWARE.md                 ← Full app stack + configuration reference
-├── CONTENT.md                  ← Complete ZIM library + transfer commands
-├── TROUBLESHOOTING.md          ← The boot loop incident + lessons learned
+├── TROUBLESHOOTING.md          ← Boot loop incident + recovery steps
+├── DEBLOAT_ISSUES.md           ← Full debloat attempt log + next attempt plan
 ├── OPERATORS_CARD.md           ← One-page quick reference for field use
 └── phases/
     ├── phase0_first_boot.md
-    ├── phase0b_debloat.md      ← What went wrong and why
-    ├── phase0c_recovery.md     ← 9 recovery attempts, firmware reflash
+    ├── phase0b_debloat.md      ← What broke and why
+    ├── phase0c_recovery.md     ← Factory wipe recovery sequence
+    ├── phase0d_reflash.md      ← Firmware reflash via SP Flash Tool (PENDING)
     ├── phase1_content_download.md
     ├── phase2_microsd_transfer.md   ← IN PROGRESS
     ├── phase3_app_config.md
@@ -147,15 +147,15 @@ bunkerai-rt7-alaska/
 
 ---
 
-## Important: Do Not Debloat
+## Debloat — Unsolved, Active Problem
 
-The biggest lesson from this build: **do not attempt ADB debloat on the RT7 Titan.**
+ADB debloat on the RT7 Titan has not been successfully completed. Batches 1 and 2 were confirmed safe. Batch 3 caused a boot loop — one or more packages in that batch is a boot dependency on the MT6853 / Android 15 EEA build.
 
-Removing `com.android.nfc` and certain system packages on the MT6853 / Android 15 EEA build causes a boot loop that cannot be fixed without Windows + SP Flash Tool or PCB test point access. The device will show "corrupted software — press power to boot" on every subsequent boot with no path to recovery from macOS alone.
+Recovery was via Android factory wipe (not firmware reflash — that is still pending via Windows + SP Flash Tool).
 
-Full incident log: [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+The build works without debloat. Nova Launcher kiosk mode achieves the same clean interface without touching system packages. The debloat remains an open goal for reducing background telemetry.
 
-The build works without debloat. The Nova Launcher kiosk configuration achieves the same clean interface without touching the system partition.
+Full incident log, confirmed-safe commands, and next attempt plan: [DEBLOAT_ISSUES.md](DEBLOAT_ISSUES.md)
 
 ---
 
