@@ -91,7 +91,7 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 |---|---|---|
 | Oukitel RT7 Titan 5G | Primary device | ~$400 |
 | SanDisk Extreme 512GB MicroSD (V30/U3) | Content storage | **Must be V30/U3** — Ultra Plus not acceptable |
-| Anker 24W CIGS Flexible Solar Panel | Off-grid charging | CIGS outperforms mono-crystalline in low-light/overcast |
+| FlexSolar 36W Ultra-Portable Solar Panel | Off-grid charging | USB-A, USB-C, and DC ports; Quick Charge; ultra-lightweight |
 | Anker PowerLine III Flow USB-C (10ft) | Data transfer + solar charge | 100W rated |
 | Pelican 1450 Protector Case | Transport + storage | Custom Pick-N-Pluck foam |
 

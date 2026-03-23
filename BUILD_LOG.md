@@ -588,7 +588,7 @@ All six layers must pass before final lockdown. Do not lock the device until all
 | Species ID | Seek → point at any plant | Offline identification confirmed |
 | Comms (LoRa) | Meshtastic → pair with Heltec V3 → send + receive in Airplane Mode | LoRa (not Bluetooth) message confirmed |
 | Comms (P2P) | Briar → pair with second device → send + receive in Airplane Mode | Message sent and received |
-| Solar | Anker CIGS panel outdoors → battery % increases at 50% brightness | Net-positive charge confirmed; record rate and conditions |
+| Solar | FlexSolar 36W panel outdoors → battery % increases at 50% brightness | Net-positive charge confirmed; record rate and conditions |
 
 ### Inference Speed Benchmark
 
@@ -638,7 +638,7 @@ adb shell settings put global development_settings_enabled 0
 | CD3WD ISO Extraction | Consider extracting ISOs on Mac before transfer: `hdiutil mount 1001_cd3wd.iso` — makes content browsable without ISO mounter app |
 | Gutenberg full EN | 206GB — requires batch method: download → transfer → clear staging → repeat. 232GB headroom available. |
 | Meshtastic Node Pairing | Pair with Heltec V3 915MHz node — configure channel, verify Airplane Mode message |
-| Solar Panel Test | Outdoors test at 50% brightness — record charge rate |
+| Solar Panel Test | Outdoors test at 50% brightness with FlexSolar 36W — record charge rate |
 | Nova Launcher Dashboard | Build survival dashboard layout per Phase 3 |
 | Phi-3 Inference Speed Test | After model load — laceration query benchmark |
 
