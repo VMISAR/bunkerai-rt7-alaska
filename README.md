@@ -74,9 +74,10 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 | Phase | Status | Notes |
 |---|---|---|
 | Phase 0 — Hardware Acquisition | ✅ Complete | RT7 in hand |
-| Phase 0b — Debloat Attempt | ⚠️ Boot loop | Batch 3 caused boot loop — see [DEBLOAT_ISSUES.md](DEBLOAT_ISSUES.md) |
+| Phase 0b — Debloat Attempt 1 | ⚠️ Boot loop | Manual ADB Batch 3 caused boot loop |
 | Phase 0c — Factory Wipe Recovery | ✅ Complete | Power + Volume Up → Wipe data — device restored |
-| Phase 0d — Firmware Reflash | 🔄 Pending | Windows + SP Flash Tool — not yet performed |
+| Phase 0d — Debloat Phase 1 (UAD-NG) | ✅ Complete | UAD-NG GUI + Deep Freeze kill-chain — Silent State achieved |
+| Phase 0e — Firmware Reflash | 🔄 Pending | Windows + SP Flash Tool — not yet performed |
 | Phase 1 — Content Download | ✅ Complete | 244GB staged across two drives |
 | Phase 2 — MicroSD Transfer | 🔄 In Progress | Waiting on SanDisk Extreme 512GB arrival |
 | Phase 3 — App Configuration | ⏳ Pending | |
@@ -101,18 +102,22 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 
 ```
 bunkerai-rt7-alaska/
-├── README.md                   ← You are here
-├── BUILD_LOG.md                ← Full narrative build log (all phases)
-├── TROUBLESHOOTING.md          ← Boot loop incident + recovery steps
-├── DEBLOAT_ISSUES.md           ← Full debloat attempt log + next attempt plan
-├── OPERATORS_CARD.md           ← One-page quick reference for field use
+├── README.md                       ← You are here
+├── BUILD_LOG.md                    ← Full narrative build log (all phases)
+├── TROUBLESHOOTING.md              ← Boot loop incident + recovery steps
+├── DEBLOAT_ISSUES.md               ← Debloat reference + Phase 1 results
+├── DEBLOAT_OPERATIONS_LOG.md       ← Phase 1 package disposition registry
+├── UAD_NG_OPERATOR_GUIDE.md        ← Step-by-step UAD-NG guide for RT7
+├── DASHBOARD_NOVA_LAUNCHER.md      ← Nova Launcher dashboard configuration
+├── OPERATORS_CARD.md               ← One-page quick reference for field use
 └── phases/
     ├── phase0_first_boot.md
-    ├── phase0b_debloat.md      ← What broke and why
-    ├── phase0c_recovery.md     ← Factory wipe recovery sequence
-    ├── phase0d_reflash.md      ← Firmware reflash via SP Flash Tool (PENDING)
+    ├── phase0b_debloat_attempt1.md ← Manual ADB — what broke and why
+    ├── phase0c_recovery.md         ← Factory wipe recovery sequence
+    ├── phase0d_debloat_uadng.md    ← UAD-NG Phase 1 — COMPLETE
+    ├── phase0e_reflash.md          ← Firmware reflash via SP Flash Tool (PENDING)
     ├── phase1_content_download.md
-    ├── phase2_microsd_transfer.md   ← IN PROGRESS
+    ├── phase2_microsd_transfer.md  ← IN PROGRESS
     ├── phase3_app_config.md
     ├── phase4_validation.md
     └── phase5_lockdown.md
@@ -142,7 +147,7 @@ bunkerai-rt7-alaska/
 - **USGS GeoPDF topos** — Interior Alaska quads at 1:63,000 scale (Fairbanks, Chena, Elliot Hwy, Steese, Richardson, Healy corridors)
 - **Project Gutenberg Agriculture volume** — farming at Interior Alaska latitudes, food production without machinery
 - **Outdoors Stack Exchange** — cold weather operations, wilderness survival, Interior Alaska conditions
-- **FlexSolar 36W with MPPT** — 50% more wattage than original spec; MPPT optimizes harvest in partial shade; USB-C direct output; IP67 rated
+- **CIGS solar panel selection** — specifically chosen for diffuse winter sun performance in Fairbanks area
 - **Glove Mode** — enabled for operation with insulated gloves at -40°F
 
 ---
