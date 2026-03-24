@@ -147,7 +147,7 @@ bunkerai-rt7-alaska/
 - **USGS GeoPDF topos** — Interior Alaska quads at 1:63,000 scale (Fairbanks, Chena, Elliot Hwy, Steese, Richardson, Healy corridors)
 - **Project Gutenberg Agriculture volume** — farming at Interior Alaska latitudes, food production without machinery
 - **Outdoors Stack Exchange** — cold weather operations, wilderness survival, Interior Alaska conditions
-- **CIGS solar panel selection** — specifically chosen for diffuse winter sun performance in Fairbanks area
+- **FlexSolar 36W with MPPT** — 50% more wattage than original spec; MPPT optimizes harvest in partial shade; USB-C direct output; IP67 rated
 - **Glove Mode** — enabled for operation with insulated gloves at -40°F
 
 ---
