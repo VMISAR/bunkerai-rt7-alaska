@@ -34,10 +34,10 @@ This is not a theoretical build. It's a documented, in-progress build with real 
 
 ```
 ┌─────────────────────────────────────────────┐
-│           NOVA LAUNCHER DASHBOARD            │
+│          LAWNCHAIR LAUNCHER DASHBOARD         │
 │     (Mission computer UI — one screen)       │
 ├──────────────┬──────────────────────────────┤
-│ AI LAYER     │ Layla + Phi-3 Mini GGUF       │
+│ AI LAYER     │ ChatterUI + Phi-3 Mini GGUF   │
 │ KNOWLEDGE    │ Kiwix + 244GB ZIM library      │
 │ NAVIGATION   │ OsmAnd + Alaska OBF           │
 │ COMMS        │ Meshtastic (LoRa) + Briar (BT) │
@@ -65,7 +65,7 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 | 6 — AI Reasoning | Phi-3 Mini + Phi-3.5 Mini GGUF (4.4GB) | Synthesizes all other layers to answer specific questions |
 | 7 — Communications | Meshtastic (LoRa mesh), Briar (P2P Bluetooth/WiFi) | Off-grid messaging when cellular is down |
 
-**Total staged: ~244GB of ~476GB usable (~51%). ~232GB headroom remaining.**
+**Total on card: 229GB of ~476GB usable. ~247GB headroom remaining.**
 
 ---
 
@@ -80,7 +80,7 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 | Phase 0e — Firmware Reflash | ⏭️ Skipped | Not required — build fully functional without reflash |
 | Phase 0f — Launcher Swap (Nova → Lawnchair) | ✅ Complete | Nova replaced with Lawnchair 15 Beta 2.1 — open source, zero telemetry |
 | Phase 1 — Content Download | ✅ Complete | 244GB staged across two drives |
-| Phase 2 — MicroSD Transfer | 🔄 In Progress | Waiting on SanDisk Extreme 512GB arrival |
+| Phase 2 — MicroSD Transfer | ✅ Complete | 229GB confirmed on card — direct Mac copy via exFAT |
 | Phase 3 — App Configuration | ⏳ Pending | |
 | Phase 4 — Validation | ⏳ Pending | |
 | Phase 5 — Final Lockdown | ⏳ Pending | |
@@ -105,20 +105,20 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 bunkerai-rt7-alaska/
 ├── README.md                       ← You are here
 ├── BUILD_LOG.md                    ← Full narrative build log (all phases)
+├── LAUNCHER_LAWNCHAIR.md           ← Lawnchair install, config, and decision record
 ├── TROUBLESHOOTING.md              ← Boot loop incident + recovery steps
 ├── DEBLOAT_ISSUES.md               ← Debloat reference + Phase 1 results
 ├── DEBLOAT_OPERATIONS_LOG.md       ← Phase 1 package disposition registry
 ├── UAD_NG_OPERATOR_GUIDE.md        ← Step-by-step UAD-NG guide for RT7
-├── DASHBOARD_NOVA_LAUNCHER.md      ← Nova Launcher dashboard configuration
 ├── OPERATORS_CARD.md               ← One-page quick reference for field use
 └── phases/
     ├── phase0_first_boot.md
     ├── phase0b_debloat_attempt1.md ← Manual ADB — what broke and why
-    ├── phase0c_recovery.md         ← Factory wipe recovery sequence
+    ├── phase0c_recovery.md         ← BROM + SP Flash Tool recovery
     ├── phase0d_debloat_uadng.md    ← UAD-NG Phase 1 — COMPLETE
-    ├── phase0e_reflash.md          ← Firmware reflash via SP Flash Tool (PENDING)
+    ├── phase0f_launcher_swap.md    ← Nova → Lawnchair — COMPLETE
     ├── phase1_content_download.md
-    ├── phase2_microsd_transfer.md  ← IN PROGRESS
+    ├── phase2_microsd_transfer.md  ← COMPLETE — 229GB on card
     ├── phase3_app_config.md
     ├── phase4_validation.md
     └── phase5_lockdown.md
@@ -132,7 +132,7 @@ bunkerai-rt7-alaska/
 |---|---|---|
 | Battery | ~6,000–8,000mAh | 32,000mAh — 4–5x capacity |
 | Ruggedness | Protective case, not rated | MIL-STD-810H / IP68/IP69K — submersible |
-| AI Architecture | Proprietary, locked | Open: Phi-3 via Layla / MLC LLM |
+| AI Architecture | Proprietary, locked | Open: Phi-3 via ChatterUI (open source, no telemetry) |
 | Night Vision | None | Built-in 20MP IR camera |
 | Mesh Comms | None | Meshtastic LoRa + Briar Bluetooth |
 | Flora/Fauna ID | None | Seek by iNaturalist (offline) |
@@ -153,15 +153,15 @@ bunkerai-rt7-alaska/
 
 ---
 
-## Debloat — Unsolved, Active Problem
+## Debloat — Completed via UAD-NG
 
-ADB debloat on the RT7 Titan has not been successfully completed. Batches 1 and 2 were confirmed safe. Batch 3 caused a boot loop — one or more packages in that batch is a boot dependency on the MT6853 / Android 15 EEA build.
+Phase 0d debloat was completed using UAD-NG (Universal Android Debloater — Next Generation). Seven packages were removed including Oukitel bloatware and Google consumer apps. A "Deep Freeze" kill-chain was developed to defeat Oukitel's self-repair watcher services. Silent State achieved March 23, 2026.
 
-Recovery was via Android factory wipe (not firmware reflash — that is still pending via Windows + SP Flash Tool).
+The earlier manual ADB attempt (Phase 0b) caused a boot loop — recovered via PCB test point BROM entry and SP Flash Tool firmware reflash. Full incident log and UAD-NG operator guide in the repo.
 
-The build works without debloat. Nova Launcher kiosk mode achieves the same clean interface without touching system packages. The debloat remains an open goal for reducing background telemetry.
+Lawnchair Launcher replaced Nova as the permanent mission interface — open source, zero telemetry, Android 15 native. See [LAUNCHER_LAWNCHAIR.md](LAUNCHER_LAWNCHAIR.md).
 
-Full incident log, confirmed-safe commands, and next attempt plan: [DEBLOAT_ISSUES.md](DEBLOAT_ISSUES.md)
+Full debloat details: [DEBLOAT_OPERATIONS_LOG.md](DEBLOAT_OPERATIONS_LOG.md) | [UAD_NG_OPERATOR_GUIDE.md](UAD_NG_OPERATOR_GUIDE.md)
 
 ---
 
