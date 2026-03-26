@@ -80,7 +80,7 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 | Phase 0e — Firmware Reflash | ⏭️ Skipped | Not required — build fully functional without reflash |
 | Phase 0f — Launcher Swap (Nova → Lawnchair) | ✅ Complete | Nova replaced with Lawnchair 15 Beta 2.1 — open source, zero telemetry |
 | Phase 1 — Content Download | ✅ Complete | 244GB staged across two drives |
-| Phase 2 — MicroSD Transfer | 🔄 In Progress | Waiting on SanDisk Extreme 512GB arrival |
+| Phase 2 — MicroSD Transfer | ✅ Complete | 229GB confirmed on card — direct Mac copy via exFAT |
 | Phase 3 — App Configuration | ⏳ Pending | |
 | Phase 4 — Validation | ⏳ Pending | |
 | Phase 5 — Final Lockdown | ⏳ Pending | |
