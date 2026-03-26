@@ -75,9 +75,10 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 |---|---|---|
 | Phase 0 — Hardware Acquisition | ✅ Complete | RT7 in hand |
 | Phase 0b — Debloat Attempt 1 | ⚠️ Boot loop | Manual ADB Batch 3 caused boot loop |
-| Phase 0c — Factory Wipe Recovery | ✅ Complete | Power + Volume Up → Wipe data — device restored |
+| Phase 0c — BROM Recovery | ✅ Complete | PCB test point → BROM mode → SP Flash Tool full firmware flash |
 | Phase 0d — Debloat Phase 1 (UAD-NG) | ✅ Complete | UAD-NG GUI + Deep Freeze kill-chain — Silent State achieved |
-| Phase 0e — Firmware Reflash | 🔄 Pending | Windows + SP Flash Tool — not yet performed |
+| Phase 0e — Firmware Reflash | ⏭️ Skipped | Not required — build fully functional without reflash |
+| Phase 0f — Launcher Swap (Nova → Lawnchair) | ✅ Complete | Nova replaced with Lawnchair 15 Beta 2.1 — open source, zero telemetry |
 | Phase 1 — Content Download | ✅ Complete | 244GB staged across two drives |
 | Phase 2 — MicroSD Transfer | 🔄 In Progress | Waiting on SanDisk Extreme 512GB arrival |
 | Phase 3 — App Configuration | ⏳ Pending | |
