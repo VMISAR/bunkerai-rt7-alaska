@@ -210,7 +210,11 @@ adb shell su  # "su: inaccessible or not found"
 
 ### Resolution
 
-**Option taken: [PLACEHOLDER — document which option you used: A (Windows + SP Flash Tool), B (PCB test point), C (recovery ADB root), or D (Oukitel support)]**
+**Option taken: B — BROM Mode via PCB Test Point**
+
+Entry into BROM (Boot ROM) mode was achieved by shorting a physical test point on the RT7 motherboard — requiring partial disassembly. Once BROM mode was confirmed, SP Flash Tool was used to flash the full firmware image including `super.img`, restoring the system partition to a clean baseline.
+
+> This is the only confirmed recovery path for a locked-bootloader RT7 Titan with a corrupted `super.img`. All software-only methods (Attempts 1–9) failed. Physical PCB access was required.
 
 **Available firmware files used:**
 
@@ -238,6 +242,151 @@ Key files confirmed present in ZIP:
 
 > The build proceeds without any debloat. The Nova Launcher kiosk mode handles the interface lockdown cleanly without touching system packages.
 
+---
+
+## Phase 0d — Debloat Phase 1 (UAD-NG)
+
+*Completed: March 23, 2026*
+
+**Status: ✅ COMPLETE — Silent State achieved**
+
+> This phase replaced the failed manual ADB debloat attempt (Phase 0b). UAD-NG's risk-rated GUI and per-package description database eliminated the guesswork that caused the previous boot loop.
+
+### Objective
+
+Achieve a "Silent State" — remove all non-essential manufacturer bloatware, Google telemetry, and persistent background services — without touching boot-critical system packages. Primary goals: maximize 32,000mAh battery life and ensure full 24GB RAM availability for offline AI models.
+
+### Tooling Stack
+
+| Tool | Role |
+|---|---|
+| UAD-NG (Universal Android Debloater — Next Generation) | Risk-rated GUI — categorizes packages as Recommended / Advanced / Expert / Unsafe |
+| Terminal (Zsh) | CLI override for packages outside UAD-NG database |
+| ADB (Android Debug Bridge) | Device communication layer |
+| Nova Launcher v8.0.18 | System Anchor — see Section 6 below |
+
+### Procedure A — Initial GUI Pass (UAD-NG)
+
+UAD-NG was launched via Terminal to ensure it inherited the ADB environment:
+```bash
+universal-android-debloater
+```
+
+Pre-flight package export before any removal:
+```bash
+adb shell pm list packages -f > ~/Desktop/RT7_Factory_Baseline.txt
+```
+
+**Selection criteria:** Packages marked "Recommended" or "Advanced" that did not impact core hardware (GPS, IR Camera, Bluetooth, NFC). Oukitel-specific packages lacked community definitions in the UAD-NG database for Android 15 — these required manual CLI override.
+
+**MediaTek safety rule:** For any `com.mediatek.*` or `com.wtk.*` package, the UAD-NG description field was checked before action. Any package whose description referenced "Boot," "Init," "NVRAM," or "Modem" was immediately whitelisted. This is the direct lesson from the Phase 0b boot loop.
+
+### Procedure B — Dumpsys Identification Drill
+
+To identify stubborn or hidden manufacturer apps appearing on the home screen, the following command was run while the target app was in focus:
+```bash
+adb shell dumpsys window | grep -E 'mCurrentFocus|mFocusedApp'
+```
+
+This returned the exact package name (e.g., `com.ddu.ai`) for surgical removal.
+
+### Procedure C — Deep Freeze Persistence Kill-Chain
+
+Standard `pm uninstall --user 0` commands failed on several Oukitel packages due to "Watcher" services in the firmware that trigger re-installs on reboot. The following five-step sequence was developed to break the self-repair loop permanently:
+```bash
+adb shell am force-stop [package.name]       # 1. Force Stop
+adb shell pm clear [package.name]            # 2. Clear Data
+adb shell pm disable-user --user 0 [package.name]  # 3. Disable
+adb shell pm hide [package.name]             # 4. Mask/Hide
+adb shell pm uninstall --user 0 [package.name]     # 5. Uninstall
+```
+
+### Package Disposition Registry
+
+| App Name | Package ID | Method | Result |
+|---|---|---|---|
+| Google Kids Space | `com.google.android.apps.kids.home` | UAD-NG Uninstall | Purged |
+| OKGame Center | `com.oukitel.gamecenter` | Deep Freeze Kill-Chain | Purged |
+| Oukitel AI | `com.ddu.ai` | Deep Freeze Kill-Chain | Purged |
+| Oukitel Market | `com.ddu.appstore` | Deep Freeze Kill-Chain | Purged |
+| Oukitel Weather | `com.ddu.android.weather` | Deep Freeze Kill-Chain | Purged |
+| Customer Center | `com.easycontrol.customercenter` | Mask/Hide | Hidden |
+| Tappic | `com.hebs.tappic` | UAD-NG Uninstall | Purged |
+
+### Critical Whitelist — DO NOT REMOVE
+
+| Package | Reason Retained |
+|---|---|
+| `com.mediatek.ygps` | Satellite acquisition — essential for Interior Alaska GPS |
+| `com.mediatek.camera` | IR Night Vision sensor driver |
+| `com.google.android.permissioncontroller` | Required for offline app permission grants |
+| `com.wtk.factory` | Hardware calibration and sensor management |
+
+### System Anchor
+
+Because the stock Oukitel launcher triggers self-repair of bloatware icons, Nova Launcher was side-loaded and set as Default Home. This stabilized the UI and ensured the Deep Freeze commands remained effective across reboots.
+
+> **Note:** Nova Launcher's role as System Anchor was later superseded. See Phase 0f — Launcher Swap.
+
+### Emergency Restoration Procedure
+
+If any removed package causes hardware instability, restore without factory reset:
+
+UAD-NG: Change status filter from "Installed" to "Uninstalled" → select package → click Restore.
+
+CLI backup method:
+```bash
+adb shell pm install-existing [package.name]
+```
+
+---
+
+## Phase 0f — Launcher Swap (Nova → Lawnchair)
+
+*Completed: March 25, 2026*
+
+**Status: ✅ COMPLETE**
+
+### Decision
+
+Nova Launcher was replaced with Lawnchair 15 Beta 2.1. Nova served as a functional System Anchor during debloat (Phase 0d) but was disqualified as the permanent launcher for the following reasons:
+
+- Active development ceased September 2025 following acquisition and team layoff
+- Ads introduced into the free app drawer
+- "Do Not Sell My Data" privacy opt-out confirmed non-functional in the paid Prime version
+- Violates the BunkerAI zero-telemetry posture
+
+Lawnchair is open source (AOSP Launcher3 base), actively maintained, carries no telemetry, and provides all required features (gestures, app hiding, drawer groups) at no cost.
+
+### APK Verification
+
+| Field | Value |
+|---|---|
+| Version | 15 Beta 2.1 |
+| Release Date | March 1, 2026 |
+| Source | https://github.com/LawnchairLauncher/lawnchair/releases |
+| SHA256 | `64a52605c299a7af9eeaafbf04a13c6e617f91c5930c8c160a3e23ab0579a6e6` |
+| Verified on Mac | `shasum -a 256 lawnchair.apk` — confirmed match |
+| Install method | ADB sideload — no Play Store dependency |
+| Package name | `app.lawnchair` |
+
+### Installation Procedure
+```bash
+# Step 1 — Install Lawnchair alongside Nova (Nova still active)
+adb install lawnchair.apk
+
+# Step 2 — Switch default launcher (on-device)
+# Settings → Apps → Default Apps → Home App → Lawnchair
+
+# Step 3 — Uninstall Nova
+adb shell pm uninstall com.teslacoilsw.launcher
+
+# Step 4 — Verify
+adb shell pm list packages | grep lawnchair   # Expected: package:app.lawnchair
+adb shell pm list packages | grep tesla        # Expected: no output
+```
+
+> Note: Step 2 must be performed on the device itself — Android 15 requires user confirmation for default app changes and will not accept it via ADB.
 ---
 
 ## Phase 1 — Content Download
@@ -500,7 +649,7 @@ Total becomes 24GB. Required before loading any model file.
 | OsmAnd | `adb install OsmAnd-android-full-arm64.apk` | 2 |
 | VLC Media Player | `adb install VLC-Android-3.6.2-arm64-v8a.apk` | 3 |
 | Layla (AI Interface) | APKPure → `adb install` | 4 — Primary AI interface |
-| Nova Launcher | APKPure → `adb install` | 5 — Dashboard |
+| Lawnchair Launcher | GitHub → `adb install lawnchair.apk` | 5 — Dashboard (installed in Phase 0f) |
 | Meshtastic | meshtastic.org → `adb install` | 6 |
 | Briar | briarproject.org → `adb install` | 7 |
 | Seek by iNaturalist | APKPure → `adb install` | 8 |
@@ -528,7 +677,9 @@ Total becomes 24GB. Required before loading any model file.
    - "hypothermia treatment" in Wikipedia
    - "how to start a fire" in WikiHow (once loaded)
 
-### Nova Launcher — Dashboard Configuration
+### Lawnchair — Dashboard Configuration
+
+> Nova Launcher was replaced with Lawnchair 15 Beta 2.1 in Phase 0f. All dashboard configuration below applies to Lawnchair. See LAUNCHER_LAWNCHAIR.md for full configuration reference.
 
 **Theme:** Black background (#000000), icon labels in amber (#FFA500) or green (#00FF41)
 
@@ -611,8 +762,7 @@ Record these after Phi-3 Mini load:
 ### Lockdown Sequence
 
 1. Enable App Pinning: Settings → Security → App Pinning → Enable
-2. Set Nova Launcher as Kiosk Controller: Nova Launcher Prime → Kiosk Mode → restrict to approved apps
-3. Disable non-essential system apps: Play Store, Chrome, Gmail — installed but inaccessible
+2. Configure Lawnchair as kiosk-equivalent: Lawnchair → Settings → Home Screen → Lock Home Screen layout. Use Android App Pinning (enabled in Step 1) to restrict navigation to approved apps.3. Disable non-essential system apps: Play Store, Chrome, Gmail — installed but inaccessible
 4. Disable connectivity: Wi-Fi off, Mobile Data off, NFC off → Airplane Mode as default state (Bluetooth enabled only for Meshtastic/Briar when in use)
 5. Set Screen Timeout to maximum
 6. Disable Lock Screen Notifications
@@ -639,8 +789,7 @@ adb shell settings put global development_settings_enabled 0
 | Gutenberg full EN | 206GB — requires batch method: download → transfer → clear staging → repeat. 232GB headroom available. |
 | Meshtastic Node Pairing | Pair with Heltec V3 915MHz node — configure channel, verify Airplane Mode message |
 | Solar Panel Test | Outdoors test at 50% brightness with FlexSolar 36W — record charge rate |
-| Nova Launcher Dashboard | Build survival dashboard layout per Phase 3 |
-| Phi-3 Inference Speed Test | After model load — laceration query benchmark |
+| Lawnchair Dashboard | Build survival dashboard layout per Phase 3 — see LAUNCHER_LAWNCHAIR.md || Phi-3 Inference Speed Test | After model load — laceration query benchmark |
 
 ---
 
