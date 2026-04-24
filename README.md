@@ -200,3 +200,17 @@ All referenced software is open source. See individual project licenses.
 
 *Built in Fairbanks, Alaska. Designed for Interior Alaska grid-down operations.*
 *Interior Alaska AO: Fairbanks / Fort Wainwright / Chena River drainage*
+---
+
+## Project Governance
+
+| Document | Purpose |
+| --- | --- |
+| [QUICK_START.md](QUICK_START.md) | Sanitized high-level build path for public use |
+| [CONTENT_MANIFEST.md](CONTENT_MANIFEST.md) | Offline content sources, versions, and validation status |
+| [VALIDATION_CHECKLIST.md](VALIDATION_CHECKLIST.md) | Field-readiness validation standards |
+| [MAINTENANCE_SCHEDULE.md](MAINTENANCE_SCHEDULE.md) | Recurring upkeep, refresh cycles, and update freeze rules |
+| [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md) | Known limitations, assumptions, and deliberate exclusions |
+| [PUBLIC_REDACTION_CHECKLIST.md](PUBLIC_REDACTION_CHECKLIST.md) | Pre-commit checklist for sensitive data |
+| [CHANGELOG.md](CHANGELOG.md) | Documentation change log |
+| [scripts/audit_public_repo.sh](scripts/audit_public_repo.sh) | Automated scan for accidentally committed sensitive strings |
