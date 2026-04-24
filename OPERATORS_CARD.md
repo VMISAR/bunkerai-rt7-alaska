@@ -6,8 +6,8 @@
 
 ## Device State
 
-| | Default | Notes |
-|---|---|---|
+|  | Default | Notes |
+| --- | --- | --- |
 | Airplane Mode | **ON** | GPS still active |
 | Bluetooth | OFF until needed | Enable for Meshtastic / Briar |
 | Screen Brightness | 50% | Adjust for solar balance |
@@ -18,8 +18,8 @@
 ## App Quick Reference
 
 | App | Function | Location |
-|---|---|---|
-| **Layla** | Ask the AI anything | Center tile |
+| --- | --- | --- |
+| **ChatterUI** | Ask the AI anything (Phi-3 Mini, fully offline) | Center tile |
 | **Kiwix** | Search offline Wikipedia, Gutenberg, Army manuals, medical refs | Left column |
 | **OsmAnd** | Offline GPS navigation | Left column |
 | **Meshtastic** | LoRa mesh radio — long range | Left column |
@@ -46,12 +46,14 @@
 **AI does not retrieve stored text — it reasons through problems.**
 **Cross-reference critical decisions with Kiwix medical references.**
 
+**Benchmarked performance:** 86 seconds for a full laceration query response (512 tokens, 6 threads, 4096 context).
+
 ---
 
 ## Kiwix — Key Libraries
 
 | Library | Best For |
-|---|---|
+| --- | --- |
 | Wikipedia | Anything general — start here |
 | Army Publications | Field sanitation, shelter, land nav, field medicine |
 | iFixit | Equipment repair with photos |
@@ -61,12 +63,14 @@
 | Gutenberg Agriculture | Farming, food production without machinery |
 | CD3WD | Building from raw materials — no modern tools assumed |
 
+**Note:** Kiwix on Android searches within individual opened ZIMs, not across the full library. Open the relevant ZIM first, then search within it.
+
 ---
 
 ## Comms Matrix
 
 | Range | Tool | Requirement |
-|---|---|---|
+| --- | --- | --- |
 | ~1km+ | Meshtastic LoRa | Heltec V3 node paired |
 | ~10–50m | Briar Bluetooth | Second Briar device paired |
 | ~100m+ | Briar WiFi mesh | Both devices WiFi enabled |
@@ -81,7 +85,7 @@ All comms work in Airplane Mode. Enable Bluetooth when using Briar or pairing Me
 
 **Priority coverage:** Fairbanks AO, Chena River drainage, Elliot Hwy, Steese Hwy, Richardson Hwy, Parks Hwy/Denali corridor
 
-**USGS Topos:** `/sdcard/USGS_Topos/Interior_Alaska/` — open with any PDF viewer
+**USGS Topos:** `/storage/69C4-815C/USGS_Topos/Interior_Alaska/` — open with VLC or any PDF viewer
 
 > Alaska USGS topo quads are **1:63,000 scale** — not 1:24,000 as in the lower 48. This is standard for Alaska.
 
@@ -89,16 +93,16 @@ All comms work in Airplane Mode. Enable Bluetooth when using Briar or pairing Me
 
 ## Alaska Reference PDFs
 
-Location: `/sdcard/BunkerAI/ADFG/`
+Location: `/storage/69C4-815C/BunkerAI/ADFG/`
 
 | File | Contents |
-|---|---|
+| --- | --- |
 | `alaska_hunting_regs_2025-2026.pdf` | Full statewide regs |
 | `GMU20_interior_alaska_2025-2026.pdf` | **Your AO — start here** |
 | `subsistence_fishing_regs_2025-2026.pdf` | Subsistence fishing |
 | `subsistence_hunt_supplement_2025-2026.pdf` | Tier I/II/Community Harvest |
 
-**Open with:** VLC or any PDF viewer on the RT7
+**Open with:** VLC or Amaze File Manager on the RT7
 
 ---
 
@@ -107,9 +111,10 @@ Location: `/sdcard/BunkerAI/ADFG/`
 Seek by iNaturalist identifies species but **does not always flag Alaska-specific toxicity.**
 
 **Before consuming any foraged plant:**
+
 1. Seek → identify species
 2. Cross-reference with ADFG Edible/Poisonous Plants PDF
-3. Query Layla with the specific species name and your intended use
+3. Query ChatterUI with the specific species name and your intended use
 4. Check Wikipedia botany entry if uncertain
 
 **When in doubt: do not eat it.**
@@ -119,7 +124,7 @@ Seek by iNaturalist identifies species but **does not always flag Alaska-specifi
 ## Power Management
 
 | State | Battery Draw | Solar Balance |
-|---|---|---|
+| --- | --- | --- |
 | Active AI inference | High | Panel must be in direct/partial sun |
 | Kiwix + navigation | Moderate | Partial sun sufficient |
 | Comms only (Meshtastic) | Low | Most overcast conditions |
@@ -133,16 +138,18 @@ Seek by iNaturalist identifies species but **does not always flag Alaska-specifi
 
 ## MicroSD Content
 
+SD card mounts at `/storage/69C4-815C/` (not `/sdcard/`).
+
 | Folder | Contents |
-|---|---|
-| `/sdcard/Kiwix/` | All ZIM files |
-| `/sdcard/AI_Models/` | Phi-3 Mini + Phi-3.5 Mini GGUF |
-| `/sdcard/BunkerAI/ADFG/` | Alaska regulatory PDFs |
-| `/sdcard/BunkerAI/CD3WD/` | Pre-industrial knowledge ISOs |
-| `/sdcard/USGS_Topos/Interior_Alaska/` | GeoPDF topographic maps |
-| `/sdcard/Android/data/net.osmand/files/` | Alaska OBF map data |
+| --- | --- |
+| `/storage/69C4-815C/Kiwix/` | All ZIM files (26 libraries) |
+| `/storage/69C4-815C/AI_Models/` | Phi-3 Mini + Phi-3.5 Mini GGUF |
+| `/storage/69C4-815C/BunkerAI/ADFG/` | Alaska regulatory PDFs |
+| `/storage/69C4-815C/BunkerAI/CD3WD/` | Pre-industrial knowledge ISOs |
+| `/storage/69C4-815C/USGS_Topos/Interior_Alaska/` | GeoPDF topographic maps (pending) |
+| `/storage/69C4-815C/android/data/net.osmand.plus/files/` | Alaska OBF map data |
 
 ---
 
-*BunkerAI-RT7 Alaska Edition v1.0*
+*BunkerAI-RT7 Alaska Edition v1.1*
 *Zero-Dark-Access | Interior Alaska | Air-Gapped*
