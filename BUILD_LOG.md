@@ -29,7 +29,7 @@
 | Item | Detail |
 |---|---|
 | Device | Oukitel RT7 Titan 5G |
-| Serial | RT7TITANA1506745 |
+| Serial | REDACTED — device-specific identifier intentionally omitted from public repo |
 | Chipset | MediaTek MT6853 / Dimensity 720 (ARM64) |
 | RAM | 12GB LPDDR4X physical |
 | Storage | 256GB internal |
@@ -216,7 +216,7 @@ Entry into BROM (Boot ROM) mode was achieved by shorting a physical test point o
 |---|---|---|
 | TP758_OQ_P07_NFC_6853_TO_EEA_V1.4.8_S251017.zip | V1.4.8 | Oct 2025 |
 
-Firmware path on Mac: `/Users/Jason/MEGA downloads/RT7 TITAN 5G A13 带NFC/TP758_OQ_P07_NFC_6853_T0_EEA_V1.4.8_S251017/`
+Firmware path on local machine: `[REDACTED LOCAL PATH]/RT7_TITAN_5G_A13_NFC_FIRMWARE/`
 
 Key files confirmed present in ZIP:
 - `MT6853_Android_scatter.txt` — partition map
