@@ -77,7 +77,7 @@ adb version
 ```bash
 # Verify connection
 adb devices
-# Expected: RT7TITANA1506745   device
+# Expected: <device_serial>   device
 # If "unauthorized": check RT7 screen for Allow popup
 ```
 
