@@ -72,7 +72,7 @@ Output must match the SHA256 above exactly — every character. If it does not m
 
 ```bash
 adb devices
-# Expected: RT7TITANA1506745   device
+# Expected: <device_serial>   device
 # If "unauthorized": check RT7 screen for Allow popup
 ```
 
