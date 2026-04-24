@@ -20,3 +20,7 @@ secrets/
 private/
 _private/
 redacted-source/
+
+# Local archives / export bundles
+files.zip
+*.zip
