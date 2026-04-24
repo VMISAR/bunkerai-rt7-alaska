@@ -13,17 +13,18 @@ find . -name ".DS_Store" -o -name "._*" | sed 's#^\./##' || true
 echo
 
 echo "3. Sensitive string scan"
-grep -RInE "RT7TITAN[A-Z0-9]+|SN:|S/N|IMEI|MEID|/Users/|apikey|api_key|password|credential|cookie|session" . \
-  --exclude-dir=.git \
-  --exclude=files.zip \
-  --exclude=.gitignore \
-  --exclude=scripts/audit_public_repo.sh \
-  --exclude=PUBLIC_REDACTION_CHECKLIST.md \
-  --exclude=KNOWN_LIMITATIONS.md \
-  --exclude=CONTENT_MANIFEST.md \
-  --exclude=QUICK_START.md \
-  --exclude=CHANGELOG.md \
-  --exclude=README.md || true
+find . -type f \
+  -not -path "./.git/*" \
+  -not -path "./scripts/audit_public_repo.sh" \
+  -not -name "files.zip" \
+  -not -name ".gitignore" \
+  -not -name "PUBLIC_REDACTION_CHECKLIST.md" \
+  -not -name "KNOWN_LIMITATIONS.md" \
+  -not -name "CONTENT_MANIFEST.md" \
+  -not -name "QUICK_START.md" \
+  -not -name "CHANGELOG.md" \
+  -not -name "README.md" \
+  -print0 | xargs -0 grep -InE "RT7TITAN[A-Z0-9]+|SN:|S/N|IMEI|MEID|/Users/|apikey|api_key|password|credential|cookie|session" || true
 echo
 
 echo "4. Large tracked/untracked files over 25MB"
