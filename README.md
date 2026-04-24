@@ -112,6 +112,7 @@ These files support reproducibility, field-readiness, and long-term maintenance:
 
 | File | Purpose |
 |---|---|
+| [`QUICK_START.md`](QUICK_START.md) | Provides a sanitized high-level build path for public readers |
 | [`CONTENT_MANIFEST.md`](CONTENT_MANIFEST.md) | Tracks offline content, source, version/date, MicroSD location, checksum, and validation status |
 | [`VALIDATION_CHECKLIST.md`](VALIDATION_CHECKLIST.md) | Defines the minimum field-readiness validation standard |
 | [`MAINTENANCE_SCHEDULE.md`](MAINTENANCE_SCHEDULE.md) | Defines recurring refresh cycles, update rules, and pre-field-use checks |
