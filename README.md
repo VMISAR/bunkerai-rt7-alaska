@@ -1,5 +1,12 @@
 # BunkerAI-RT7 Alaska Edition
 
+## Public Repository Notice
+
+This repository is written as a public, reproducible documentation project. Device-specific identifiers, private file paths, credentials, account details, and personally sensitive configuration data are intentionally omitted or redacted.
+
+The documentation preserves the build architecture, recovery lessons, operating concept, and validation approach while avoiding unnecessary exposure of private device or user information.
+
+
 **A fully self-contained, air-gapped survival intelligence terminal built on the Oukitel RT7 Titan 5G**
 
 > *Zero-Dark-Access | Open Architecture | Alaska-Hardened*
