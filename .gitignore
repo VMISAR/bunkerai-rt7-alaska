@@ -1,0 +1,22 @@
+# macOS Finder metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS resource forks
+._*
+
+# Trash and temporary files
+.Trashes
+*.tmp
+*.temp
+*.swp
+
+# Local/private files
+*.local
+.env
+.env.*
+secrets/
+private/
+_private/
+redacted-source/
