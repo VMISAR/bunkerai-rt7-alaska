@@ -17,7 +17,7 @@ The documentation preserves the build architecture, recovery lessons, operating 
 
 This is a complete build log documenting how to turn an Oukitel RT7 Titan 5G rugged tablet into a fully offline survival intelligence terminal — no internet, no cellular, no cloud. Everything runs from a SanDisk Extreme MicroSD card loaded with AI models, offline knowledge libraries, topographic maps, and communications tools.
 
-The design baseline was the commercial [BunkerAI "BOB" tablet](https://bunkerai.io/) ($799). This build exceeds it in every category that matters — battery life, ruggedness, AI capability, and open architecture — at roughly half the cost.
+The design baseline was the commercial [BunkerAI "BOB" tablet](https://bunkerai.io/) ($799). This project documents an open, self-managed alternative designed to emphasize battery capacity, ruggedness, offline AI capability, local ownership of files, and reproducibility at a lower hardware cost.
 
 This is not a theoretical build. It's a documented, in-progress build with real mistakes, a real boot loop incident, and real decisions made under real constraints in Interior Alaska.
 
