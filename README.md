@@ -118,6 +118,7 @@ These files support reproducibility, field-readiness, and long-term maintenance:
 | [`MAINTENANCE_SCHEDULE.md`](MAINTENANCE_SCHEDULE.md) | Defines recurring refresh cycles, update rules, and pre-field-use checks |
 | [`CHANGELOG.md`](CHANGELOG.md) | Tracks notable public documentation and build-state changes |
 | [`PUBLIC_REDACTION_CHECKLIST.md`](PUBLIC_REDACTION_CHECKLIST.md) | Provides a pre-publication checklist for sensitive data review |
+| [`KNOWN_LIMITATIONS.md`](KNOWN_LIMITATIONS.md) | Records known risks, assumptions, incomplete validations, and deliberate exclusions |
 
 ## Repository Structure
 
