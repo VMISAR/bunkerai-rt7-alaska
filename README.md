@@ -1,5 +1,12 @@
 # BunkerAI-RT7 Alaska Edition
 
+## Public Repository Notice
+
+This repository is written as a public, reproducible documentation project. Device-specific identifiers, private file paths, credentials, account details, and personally sensitive configuration data are intentionally omitted or redacted.
+
+The documentation preserves the build architecture, recovery lessons, operating concept, and validation approach while avoiding unnecessary exposure of private device or user information.
+
+
 **A fully self-contained, air-gapped survival intelligence terminal built on the Oukitel RT7 Titan 5G**
 
 > *Zero-Dark-Access | Open Architecture | Alaska-Hardened*
@@ -10,7 +17,7 @@
 
 This is a complete build log documenting how to turn an Oukitel RT7 Titan 5G rugged tablet into a fully offline survival intelligence terminal — no internet, no cellular, no cloud. Everything runs from a SanDisk Extreme MicroSD card loaded with AI models, offline knowledge libraries, topographic maps, and communications tools.
 
-The design baseline was the commercial [BunkerAI "BOB" tablet](https://bunkerai.io/) ($799). This build exceeds it in every category that matters — battery life, ruggedness, AI capability, and open architecture — at roughly half the cost.
+The design baseline was the commercial [BunkerAI "BOB" tablet](https://bunkerai.io/) ($799). This project documents an open, self-managed alternative designed to emphasize battery capacity, ruggedness, offline AI capability, local ownership of files, and reproducibility at a lower hardware cost.
 
 This is not a theoretical build. It's a documented, in-progress build with real mistakes, a real boot loop incident, and real decisions made under real constraints in Interior Alaska.
 
@@ -98,6 +105,20 @@ The MicroSD is loaded using a layered knowledge model. Each layer covers a diffe
 | Pelican 1450 Protector Case | Transport + storage | Custom Pick-N-Pluck foam |
 
 ---
+
+## Project Governance and Validation
+
+These files support reproducibility, field-readiness, and long-term maintenance:
+
+| File | Purpose |
+|---|---|
+| [`QUICK_START.md`](QUICK_START.md) | Provides a sanitized high-level build path for public readers |
+| [`CONTENT_MANIFEST.md`](CONTENT_MANIFEST.md) | Tracks offline content, source, version/date, MicroSD location, checksum, and validation status |
+| [`VALIDATION_CHECKLIST.md`](VALIDATION_CHECKLIST.md) | Defines the minimum field-readiness validation standard |
+| [`MAINTENANCE_SCHEDULE.md`](MAINTENANCE_SCHEDULE.md) | Defines recurring refresh cycles, update rules, and pre-field-use checks |
+| [`CHANGELOG.md`](CHANGELOG.md) | Tracks notable public documentation and build-state changes |
+| [`PUBLIC_REDACTION_CHECKLIST.md`](PUBLIC_REDACTION_CHECKLIST.md) | Provides a pre-publication checklist for sensitive data review |
+| [`KNOWN_LIMITATIONS.md`](KNOWN_LIMITATIONS.md) | Records known risks, assumptions, incomplete validations, and deliberate exclusions |
 
 ## Repository Structure
 
