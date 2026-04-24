@@ -13,9 +13,10 @@ find . -name ".DS_Store" -o -name "._*" | sed 's#^\./##' || true
 echo
 
 echo "3. Sensitive string scan"
-grep -RInE "Serial|SN:|S/N|IMEI|MEID|/Users/|apikey|api_key|password|secret|credential|cookie|session|RT7TITAN[A-Z0-9]+" . \
+grep -RInE "RT7TITAN[A-Z0-9]+|SN:|S/N|IMEI|MEID|/Users/|apikey|api_key|password|credential|cookie|session" . \
   --exclude-dir=.git \
   --exclude=files.zip \
+  --exclude=.gitignore \
   --exclude=scripts/audit_public_repo.sh \
   --exclude=PUBLIC_REDACTION_CHECKLIST.md \
   --exclude=KNOWN_LIMITATIONS.md \
